@@ -1,3 +1,7 @@
+# Sobre o repositório
+
+Este repositorio contém o bytebank do [curso do alura](https://cursos.alura.com.br/course/flutter-fundamentos) 
+
 # Pré-Requisitos
 Após instalar o Flutter, [baixe](https://developer.android.com/studio) e 
 [instale](https://developer.android.com/studio/install) o Android Studio para
