@@ -1,25 +1,24 @@
 import 'package:bytebank/components/editor.dart';
-import 'package:bytebank/models/transferencia.dart';
+import 'package:bytebank/models/transfer.dart';
 import 'package:flutter/material.dart';
 
 const _tituloAppBar = 'Criando Transferencia';
-const _rotuloCampoValor = 'Valor';
-const _rotuloCampoConta = 'Nº Conta';
-const _dicaCampoValor = '0000';
-const _dicaCampoConta = '0000';
-const _textoBotaoConfirmar = 'Confirmar';
+const _labelValor = 'Valor';
+const _labelConta = 'Nº Conta';
+const _tipValor = '0000';
+const _tipConta = '0000';
+const _textButtonSend = 'Confirmar';
 
-class FormTransf extends StatefulWidget {
-  FormTransf({Key? key}) : super(key: key);
+class FormTransfer extends StatefulWidget {
+  FormTransfer({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
-    // TODO: implement createState
-    return FormularioTransferenciaState();
+    return FormTransferState();
   }
 }
 
-class FormularioTransferenciaState extends State<FormTransf> {
+class FormTransferState extends State<FormTransfer> {
   final TextEditingController _controllerCampoConta = TextEditingController();
   final TextEditingController _controllerCampoValor = TextEditingController();
 
@@ -36,18 +35,21 @@ class FormularioTransferenciaState extends State<FormTransf> {
             children: [
               Editor(
                 controller: _controllerCampoConta,
-                rotulo: _rotuloCampoConta,
-                dica: _dicaCampoConta,
+                label: _labelConta,
+                tip: _tipConta,
               ),
               Editor(
                 controller: _controllerCampoValor,
-                rotulo: _rotuloCampoValor,
-                dica: _dicaCampoValor,
+                label: _labelValor,
+                tip: _tipValor,
                 icon: Icons.monetization_on,
               ),
-              ElevatedButton(
-                onPressed: () => _criarTransferencia(context),
-                child: Text(_textoBotaoConfirmar),
+              SizedBox(
+                width: double.maxFinite,
+                child: ElevatedButton(
+                  onPressed: () => _addTransfer(context),
+                  child: Text(_textButtonSend),
+                ),
               ),
             ],
           ),
@@ -56,7 +58,7 @@ class FormularioTransferenciaState extends State<FormTransf> {
     );
   }
 
-  void _criarTransferencia(context) {
+  void _addTransfer(context) {
     final valor = double.tryParse(_controllerCampoValor.text);
     final conta = int.tryParse(_controllerCampoConta.text);
     if (valor != null && conta != null) {

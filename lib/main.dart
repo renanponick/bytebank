@@ -1,4 +1,4 @@
-import 'package:bytebank/screens/transferencia/lista.dart';
+import 'package:bytebank/screens/dashboard.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -12,12 +12,13 @@ class BytebankApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
+        primaryColor: Colors.green[900],
         colorScheme: ColorScheme.fromSwatch().copyWith(
           primary: Colors.green[900],
           secondary: Colors.blue[700],
         ),
       ),
-      home: Listagem(),
+      home: Dashboard(),
     );
   }
 }

@@ -1,19 +1,21 @@
-import 'package:bytebank/models/transferencia.dart';
-import 'package:bytebank/screens/transferencia/formulario.dart';
+import 'package:bytebank/models/transfer.dart';
+import 'package:bytebank/screens/transfer/form.dart';
 import 'package:flutter/material.dart';
+
+import '../../components/item_list.dart';
 
 const _tituloAppBar = 'Transferências';
 
-class Listagem extends StatefulWidget {
+class ListTransfer extends StatefulWidget {
   final List<Transfer> _transferencias = [];
 
   @override
   State<StatefulWidget> createState() {
-    return ListaTransferenciaState();
+    return ListTransferState();
   }
 }
 
-class ListaTransferenciaState extends State<Listagem> {
+class ListTransferState extends State<ListTransfer> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,13 +26,17 @@ class ListaTransferenciaState extends State<Listagem> {
         itemCount: widget._transferencias.length,
         itemBuilder: (context, indice) {
           final transfer = widget._transferencias[indice];
-          return Item(transfer: transfer);
+          return Item(
+            title: transfer.valor.toString(),
+            subtitle: transfer.conta.toString(),
+            icon: Icons.monetization_on,
+          );
         },
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return FormTransf();
+            return FormTransfer();
           })).then((transfer) {
             // Testar tempo de delay
             Future.delayed(Duration(seconds: 0), () {
@@ -49,25 +55,5 @@ class ListaTransferenciaState extends State<Listagem> {
         widget._transferencias.add(transfer);
       });
     }
-  }
-}
-
-class Item extends StatelessWidget {
-  final Transfer transfer;
-
-  const Item({
-    required this.transfer,
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Card(
-      child: ListTile(
-        leading: Icon(Icons.monetization_on),
-        title: (Text(transfer.valor.toString())),
-        subtitle: (Text(transfer.conta.toString())),
-      ),
-    );
   }
 }
