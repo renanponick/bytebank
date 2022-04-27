@@ -1,3 +1,4 @@
+import 'package:bytebank/database/app_database.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/screens/contacts/form.dart';
 import 'package:flutter/material.dart';
@@ -6,30 +7,47 @@ import '../../components/item_list.dart';
 
 const _tituloAppBar = 'Contatos';
 
-class ContactsList extends StatefulWidget {
-  final List<Contact> _contacts = [];
-
-  @override
-  State<StatefulWidget> createState() {
-    return ContactsListState();
-  }
-}
-
-class ContactsListState extends State<ContactsList> {
+class ContactsList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text(_tituloAppBar),
       ),
-      body: ListView.builder(
-        itemCount: widget._contacts.length,
-        itemBuilder: (context, indice) {
-          final contact = widget._contacts[indice];
-          return Item(
-            title: contact.name,
-            subtitle: contact.number.toString(),
-          );
+      body: FutureBuilder<List<Contact>>(
+        initialData: const [],
+        future: findAll(),
+        builder: (context, snapshot) {
+          final List<Contact> contacts = snapshot.data as List<Contact>;
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+              break;
+            case ConnectionState.waiting:
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: const [
+                    Text('Loading'),
+                    CircularProgressIndicator(),
+                  ],
+                ),
+              );
+            case ConnectionState.active:
+              break;
+            case ConnectionState.done:
+              return ListView.builder(
+                itemCount: contacts.length,
+                itemBuilder: (context, index) {
+                  final contact = contacts[index];
+                  return Item(
+                    title: contact.name,
+                    subtitle: contact.accountNumber.toString(),
+                  );
+                },
+              );
+          }
+          return const Text('Unknown Error');
         },
       ),
       floatingActionButton: FloatingActionButton(
@@ -51,7 +69,7 @@ class ContactsListState extends State<ContactsList> {
   void _atualiza(Contact? contact) {
     if (contact != null) {
       setState(() {
-        widget._contacts.add(contact);
+        _contacts.add(contact);
       });
     }
   }

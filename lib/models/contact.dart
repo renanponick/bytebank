@@ -1,14 +1,16 @@
 class Contact {
+  final int id;
   final String name;
-  final int number;
+  final int accountNumber;
 
   Contact(
+    this.id,
     this.name,
-    this.number,
+    this.accountNumber,
   );
 
   @override
   String toString() {
-    return 'Transferencia{Nome: $name, Numero $number}';
+    return 'Transferencia{Id: $id, Nome: $name, Numero $accountNumber}';
   }
 }

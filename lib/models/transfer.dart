@@ -1,14 +1,16 @@
 class Transfer {
+  final int id;
   final double valor;
-  final int conta;
+  final int accountNumber;
 
   Transfer(
+    this.id,
     this.valor,
-    this.conta,
+    this.accountNumber,
   );
 
   @override
   String toString() {
-    return 'Transferencia{valor: $valor, conta $conta}';
+    return 'Transferencia{id: $id, valor: $valor, accountNumber $accountNumber}';
   }
 }

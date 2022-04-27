@@ -62,7 +62,7 @@ class FormContactState extends State<FormContact> {
     final nome = _controllerName.text;
     final number = int.tryParse(_controllerNumber.text);
     if (nome != null && number != null) {
-      final createdContact = Contact(nome, number);
+      final createdContact = Contact(0, nome, number);
       Navigator.pop(context, createdContact);
     }
   }

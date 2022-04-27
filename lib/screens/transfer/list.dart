@@ -28,7 +28,7 @@ class ListTransferState extends State<ListTransfer> {
           final transfer = widget._transferencias[indice];
           return Item(
             title: transfer.valor.toString(),
-            subtitle: transfer.conta.toString(),
+            subtitle: transfer.accountNumber.toString(),
             icon: Icons.monetization_on,
           );
         },

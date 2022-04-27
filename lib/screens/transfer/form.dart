@@ -62,7 +62,7 @@ class FormTransferState extends State<FormTransfer> {
     final valor = double.tryParse(_controllerCampoValor.text);
     final conta = int.tryParse(_controllerCampoConta.text);
     if (valor != null && conta != null) {
-      final createdTransfer = Transfer(valor, conta);
+      final createdTransfer = Transfer(0, valor, conta);
       Navigator.pop(context, createdTransfer);
     }
   }
