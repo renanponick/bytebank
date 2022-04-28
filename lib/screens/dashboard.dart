@@ -16,7 +16,7 @@ class Dashboard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_titleAppBar),
+        title: const Text(_titleAppBar),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -58,7 +58,7 @@ class Dashboard extends StatelessWidget {
                     child: Container(
                       width: 150,
                       height: 100,
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment:
                             MainAxisAlignment.spaceBetween, // Vertical
@@ -98,7 +98,7 @@ class Dashboard extends StatelessWidget {
                     child: Container(
                       width: 150,
                       height: 100,
-                      padding: EdgeInsets.all(8.0),
+                      padding: const EdgeInsets.all(8.0),
                       child: Column(
                         mainAxisAlignment:
                             MainAxisAlignment.spaceBetween, // Vertical

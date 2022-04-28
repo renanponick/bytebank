@@ -1,4 +1,3 @@
-import 'package:bytebank/models/transfer.dart';
 import 'package:flutter/material.dart';
 
 class Item extends StatelessWidget {

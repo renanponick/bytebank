@@ -18,7 +18,7 @@ class BytebankApp extends StatelessWidget {
           secondary: Colors.blue[700],
         ),
       ),
-      home: Dashboard(),
+      home: const Dashboard(),
     );
   }
 }

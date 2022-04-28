@@ -1,4 +1,4 @@
-import 'package:bytebank/database/app_database.dart';
+import 'package:bytebank/database/dao/contact_dao.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:bytebank/screens/contacts/form.dart';
 import 'package:flutter/material.dart';
@@ -7,16 +7,26 @@ import '../../components/item_list.dart';
 
 const _tituloAppBar = 'Contatos';
 
-class ContactsList extends StatelessWidget {
+class ContactsList extends StatefulWidget {
+  ContactsList({Key? key}) : super(key: key);
+  final ContactDao _dao = ContactDao();
+
+  @override
+  State<StatefulWidget> createState() {
+    return ContactsListState();
+  }
+}
+
+class ContactsListState extends State<ContactsList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_tituloAppBar),
+        title: const Text(_tituloAppBar),
       ),
       body: FutureBuilder<List<Contact>>(
         initialData: const [],
-        future: findAll(),
+        future: widget._dao.findAll(),
         builder: (context, snapshot) {
           final List<Contact> contacts = snapshot.data as List<Contact>;
           switch (snapshot.connectionState) {
@@ -52,25 +62,14 @@ class ContactsList extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return FormContact();
-          })).then((transfer) {
-            // Testar tempo de delay
-            Future.delayed(Duration(seconds: 0), () {
-              _atualiza(transfer);
-            });
-          });
+          Navigator.of(context)
+              .push(MaterialPageRoute(
+                builder: (context) => FormContact(),
+              ))
+              .then((value) => setState(() {}));
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
-  }
-
-  void _atualiza(Contact? contact) {
-    if (contact != null) {
-      setState(() {
-        _contacts.add(contact);
-      });
-    }
   }
 }

@@ -1,4 +1,5 @@
 import 'package:bytebank/components/editor.dart';
+import 'package:bytebank/database/dao/contact_dao.dart';
 import 'package:bytebank/models/contact.dart';
 import 'package:flutter/material.dart';
 
@@ -12,6 +13,8 @@ const _textButtonSend = 'Confirmar';
 
 class FormContact extends StatefulWidget {
   FormContact({Key? key}) : super(key: key);
+
+  final ContactDao _dao = ContactDao();
 
   @override
   State<StatefulWidget> createState() {
@@ -27,7 +30,7 @@ class FormContactState extends State<FormContact> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_titleAppBar),
+        title: const Text(_titleAppBar),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -48,7 +51,7 @@ class FormContactState extends State<FormContact> {
                 width: double.maxFinite,
                 child: ElevatedButton(
                   onPressed: () => _addContact(context),
-                  child: Text(_textButtonSend),
+                  child: const Text(_textButtonSend),
                 ),
               ),
             ],
@@ -61,9 +64,12 @@ class FormContactState extends State<FormContact> {
   void _addContact(context) {
     final nome = _controllerName.text;
     final number = int.tryParse(_controllerNumber.text);
+    // ignore: unnecessary_null_comparison
     if (nome != null && number != null) {
       final createdContact = Contact(0, nome, number);
-      Navigator.pop(context, createdContact);
+      widget._dao
+          .saveContact(createdContact)
+          .then((id) => Navigator.pop(context));
     }
   }
 }

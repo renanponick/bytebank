@@ -7,6 +7,7 @@ import '../../components/item_list.dart';
 const _tituloAppBar = 'Transferências';
 
 class ListTransfer extends StatefulWidget {
+  ListTransfer({Key? key}) : super(key: key);
   final List<Transfer> _transferencias = [];
 
   @override
@@ -20,7 +21,7 @@ class ListTransferState extends State<ListTransfer> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(_tituloAppBar),
+        title: const Text(_tituloAppBar),
       ),
       body: ListView.builder(
         itemCount: widget._transferencias.length,
@@ -36,15 +37,15 @@ class ListTransferState extends State<ListTransfer> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return FormTransfer();
+            return const FormTransfer();
           })).then((transfer) {
             // Testar tempo de delay
-            Future.delayed(Duration(seconds: 0), () {
+            Future.delayed(const Duration(seconds: 0), () {
               _atualiza(transfer);
             });
           });
         },
-        child: Icon(Icons.add),
+        child: const Icon(Icons.add),
       ),
     );
   }
